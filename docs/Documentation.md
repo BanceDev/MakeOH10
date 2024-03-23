@@ -10,6 +10,15 @@ double seven segment
 Digital Receiver
 Infrared controller
 
+Owned Resistors:
+1 ohm: brown black gold gold
+10 ohms: brown black black gold
+100 ohms: brown black brown gold
+51k ohms: green brown orange gold
+1M ohms: green brown orange gold
+
+Want closer to 220 for LEDS
+
 
 Tasks to complete:
 
