@@ -1,8 +1,11 @@
-#define RED 2
-#define YELLOW 3
-#define GREEN 4
-#define BLUE 5
+#define YELLOW 5
+#define RED 4
+#define GREEN 3
+#define BLUE 2
 #define BUZZER 6
+#define b1 7
+#define b2 8
+#define b3 9
 
 // LCD Library
 #include <LiquidCrystal_I2C.h>
@@ -16,6 +19,11 @@ void setup() {
   pinMode(GREEN, OUTPUT);
   pinMode(BLUE, OUTPUT);
   pinMode(BUZZER,OUTPUT);
+
+  //button setup
+  pinMode(b1, INPUT_PULLUP);  
+  pinMode(b2, INPUT_PULLUP);
+  pinMode(b3, INPUT_PULLUP);  
 
   //LCD Setup
   lcd.init(); // Initialize the LCD I2C display
@@ -35,18 +43,25 @@ void loop() {
 
   // Buzzer Tests (bad sound)
   digitalWrite(BUZZER, HIGH);
-  digitalWrite(RED, HIGH);
-  digitalWrite(YELLOW, HIGH);
-  digitalWrite(GREEN, HIGH);
-  digitalWrite(BLUE, HIGH);
-  delay(15000);
-  digitalWrite(BUZZER, LOW);
+  //digitalWrite(RED, HIGH);
+  //digitalWrite(YELLOW, HIGH);
+  //digitalWrite(GREEN, HIGH);
+  //digitalWrite(BLUE, HIGH);
+  //delay(15000);
+  //digitalWrite(BUZZER, LOW);
 
     //add another 500 milliseconds of silence
-
-  digitalWrite(RED, LOW);
-  digitalWrite(YELLOW, LOW);
-  digitalWrite(GREEN, LOW);
-  digitalWrite(BLUE, LOW);
-  delay(200);
+  if (digitalRead(b1) == LOW)
+  {
+    digitalWrite(RED, HIGH);
+  }
+  if (digitalRead(b2) == LOW)
+  {
+    digitalWrite(GREEN, HIGH);
+  }
+  if (digitalRead(b3) == LOW)
+  {
+    digitalWrite(BLUE, HIGH);
+  }
+  //delay(200);
 }
