@@ -2,7 +2,8 @@ def create_file(file_name):
     try:
         with open("sketches/" + file_name + ".ino", 'w') as file:
             file.write("//" + file_name + "\n")
-            file.write("void setup() {}" + "\n")
+            file.write("#define RED 2\n#define YELLOW 3\n#define GREEN 4\n#define BLUE 5\n#define BUZZER 6\n")
+            file.write("void setup() {\npinMode(RED, OUTPUT);\npinMode(YELLOW, OUTPUT);\npinMode(GREEN, OUTPUT);\npinMode(BLUE, OUTPUT);\npinMode(BUZZER,OUTPUT);\n}\n")
             file.write("void loop() {" + "\n")
     except IOError:
         print("Error writing to file", file_name)
@@ -49,6 +50,13 @@ def for_loop(file_name, amount):
     except IOError:
         print("Error writing to file", file_name)
 
+def digital_write(file_name, pin, state):
+    try:
+        with open("sketches/" + file_name + ".ino", 'a') as file:
+            file.write("digitalWrite(" + pin + ", " + state + ");\n")
+    except IOError:
+        print("Error writing to file", file_name)
+
 # reads in the file and handles the keywords
 def read_file(file_name):
     out_name = ""
@@ -80,6 +88,22 @@ def read_file(file_name):
                     line = line.replace("TIMES", "")
                     line = line.strip()
                     for_loop(out_name, line)
+                elif "GREEN_ON" in line:
+                    digital_write(out_name, "GREEN", "HIGH")
+                elif "GREEN_OFF" in line: 
+                    digital_write(out_name, "GREEN", "LOW")
+                elif "RED_ON" in line:
+                    digital_write(out_name, "RED", "HIGH")
+                elif "RED_OFF" in line: 
+                    digital_write(out_name, "RED", "LOW")
+                elif "BLUE_ON" in line:
+                    digital_write(out_name, "BLUE", "HIGH")
+                elif "BLUE_OFF" in line: 
+                    digital_write(out_name, "BLUE", "LOW")
+                elif "YELLOW_ON" in line:
+                    digital_write(out_name, "YELLOW", "HIGH")
+                elif "YELLOW_OFF" in line: 
+                    digital_write(out_name, "YELLOW", "LOW")
     except FileNotFoundError:
         print("File not found. Please make sure the file name is correct.")
 
