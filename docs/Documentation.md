@@ -18,6 +18,7 @@ Owned Resistors:
 1M ohms: green brown orange gold
 
 Want closer to 220 for LEDS
+Found 220 leds.
 
 
 Tasks to complete:
