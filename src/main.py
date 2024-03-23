@@ -9,6 +9,13 @@ def create_file(file_name):
         print("Error writing to file", file_name)
 
 def if_statement(file_name, condition):
+    if condition == "BUTTON1":
+        condition = "digitalRead(BUTTON1)"
+    elif condition == "BUTTON2":
+        condition = "digitalRead(BUTTON2)"
+    else:
+        condition = "digitalRead(BUTTON3)"
+
     try:
         with open("sketches/" + file_name + ".ino", 'a') as file:
             file.write("if (" + condition + ") {\n")
@@ -23,6 +30,13 @@ def else_statement(file_name):
         print("Error writing to file", file_name)
 
 def elif_statement(file_name, condition):
+    if condition == "BUTTON1":
+        condition = "digitalRead(BUTTON1)"
+    elif condition == "BUTTON2":
+        condition = "digitalRead(BUTTON2)"
+    else:
+        condition = "digitalRead(BUTTON3)"
+        
     try:
         with open("sketches/" + file_name + ".ino", 'a') as file:
             file.write("} else if (" + condition + ") {\n")
@@ -57,6 +71,20 @@ def digital_write(file_name, pin, state):
     except IOError:
         print("Error writing to file", file_name)
 
+def buzzer(file_name, freq):
+    try:
+        with open("sketches/" + file_name + ".ino", 'a') as file:
+            file.write("tone(BUZZER, " + freq + ");\n")
+    except IOError:
+        print("Error writing to file", file_name)
+
+def no_tone(file_name):
+    try:
+        with open("sketches/" + file_name + ".ino", 'a') as file:
+            file.write("digitalWrite(BUZZER, HIGH);\n")
+    except IOError:
+        print("Error writing to file", file_name)
+
 # reads in the file and handles the keywords
 def read_file(file_name):
     out_name = ""
@@ -72,9 +100,14 @@ def read_file(file_name):
                     out_name = line
                     create_file(line)
                 elif "ELSE IF" in line:
-                    elif_statement(out_name, "idk")
+                    line = line.replace("ELSE", "")
+                    line = line.replace("IF", "")
+                    line = line.strip()
+                    elif_statement(out_name, line)
                 elif "IF" in line:
-                    if_statement(out_name, "idk")
+                    line = line.replace("IF", "")
+                    line = line.strip()
+                    if_statement(out_name, line)
                 elif "ELSE" in line:
                     else_statement(out_name)
                 elif "END" in line:
@@ -104,6 +137,13 @@ def read_file(file_name):
                     digital_write(out_name, "YELLOW", "HIGH")
                 elif "YELLOW_OFF" in line: 
                     digital_write(out_name, "YELLOW", "LOW")
+                elif "BUZZER_OFF" in line:
+                    no_tone(out_name)
+                elif "BUZZER" in line:
+                    line = line.replace("BUZZER", "")
+                    line = line.strip()
+                    buzzer(out_name, line)
+                
     except FileNotFoundError:
         print("File not found. Please make sure the file name is correct.")
 
