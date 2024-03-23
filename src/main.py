@@ -2,8 +2,10 @@ def create_file(file_name):
     try:
         with open("sketches/" + file_name + ".ino", 'w') as file:
             file.write("//" + file_name + "\n")
-            file.write("#define RED 2\n#define YELLOW 3\n#define GREEN 4\n#define BLUE 5\n#define BUZZER 6\n")
-            file.write("void setup() {\npinMode(RED, OUTPUT);\npinMode(YELLOW, OUTPUT);\npinMode(GREEN, OUTPUT);\npinMode(BLUE, OUTPUT);\npinMode(BUZZER,OUTPUT);\n}\n")
+            file.write("#define RED 4\n#define YELLOW 5\n#define GREEN 2\n#define BLUE 3\n#define BUZZER 6\n#define BUTTON1 7\n#define BUTTON2 8\n#define BUTTON3 9\n")
+            file.write("#include <LiquidCrystal_I2C.h>\nLiquidCrystal_I2C lcd(0x27, 16, 2);\n")
+            file.write("void setup() {\npinMode(RED, OUTPUT);\npinMode(YELLOW, OUTPUT);\npinMode(GREEN, OUTPUT);\npinMode(BLUE, OUTPUT);\npinMode(BUZZER, OUTPUT);\npinMode(BUTTON1, INPUT_PULLUP);\npinMode(BUTTON2, INPUT_PULLUP);\npinMode(BUTTON3, INPUT_PULLUP);\n")
+            file.write("digitalWrite(BUZZER, HIGH);\nlcd.init();\nlcd.backlight();\nlcd.setCursor(0, 0);\n}\n")
             file.write("void loop() {" + "\n")
     except IOError:
         print("Error writing to file", file_name)
@@ -36,7 +38,7 @@ def elif_statement(file_name, condition):
         condition = "digitalRead(BUTTON2)"
     else:
         condition = "digitalRead(BUTTON3)"
-        
+
     try:
         with open("sketches/" + file_name + ".ino", 'a') as file:
             file.write("} else if (" + condition + ") {\n")
@@ -82,6 +84,13 @@ def no_tone(file_name):
     try:
         with open("sketches/" + file_name + ".ino", 'a') as file:
             file.write("digitalWrite(BUZZER, HIGH);\n")
+    except IOError:
+        print("Error writing to file", file_name)
+
+def print_statement(file_name, text):
+    try:
+        with open("sketches/" + file_name + ".ino", 'a') as file:
+            file.write("lcd.clear();\nlcd.setCursor(0,0)\nlcd.print(\""+text+"\");\n")
     except IOError:
         print("Error writing to file", file_name)
 
@@ -143,6 +152,10 @@ def read_file(file_name):
                     line = line.replace("BUZZER", "")
                     line = line.strip()
                     buzzer(out_name, line)
+                elif "PRINT" in line:
+                    line = line.replace("PRINT", "")
+                    line = line.lstrip()
+                    print_statement(out_name, line)
                 
     except FileNotFoundError:
         print("File not found. Please make sure the file name is correct.")
