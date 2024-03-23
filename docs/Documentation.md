@@ -28,6 +28,10 @@ Get total size for board
 CAD make case for kit
 Print kit
 
+Board updates:
+Putting led holes in the top and wiring down
+LEDs are prepped and tested.
+
 
 Software:
 Convert from language to new code
