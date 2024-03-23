@@ -20,6 +20,12 @@ Owned Resistors:
 Want closer to 220 for LEDS
 Found 220 leds.
 
+PINOUT:
+Buzzer: D6, 5V, GND
+LCD: A4, A5, 5V, GND
+LEDS: D2-D5
+Buttons: D7-D9
+
 
 Tasks to complete:
 
