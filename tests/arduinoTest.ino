@@ -15,15 +15,25 @@ void setup() {
 
 void loop() {
   // LED Output Tests
+  digitalWrite(RED, LOW);
+  digitalWrite(YELLOW, LOW);
+  digitalWrite(GREEN, LOW);
+  digitalWrite(BLUE, LOW);
+
+  // Buzzer Tests (bad sound)
+  digitalWrite(BUZZER, HIGH);
   digitalWrite(RED, HIGH);
   digitalWrite(YELLOW, HIGH);
   digitalWrite(GREEN, HIGH);
   digitalWrite(BLUE, HIGH);
-
-  // Buzzer Tests (bad sound)
-  //tone(BUZZER ,400,300);
+  delay(5000);
+  digitalWrite(BUZZER, LOW);
 
     //add another 500 milliseconds of silence
 
-    //delay(1000);
+  digitalWrite(RED, LOW);
+  digitalWrite(YELLOW, LOW);
+  digitalWrite(GREEN, LOW);
+  digitalWrite(BLUE, LOW);
+  delay(1000);
 }
