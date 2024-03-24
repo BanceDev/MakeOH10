@@ -1,7 +1,16 @@
 PROGRAM ToggleLight
+    PRINT Hello Make Oh10!
     IF BUTTON1
         GREEN_ON
-    ELSE
+        RED_OFF
+        BLUE_OFF
+    ELSE IF BUTTON2
         GREEN_OFF
+        RED_ON
+        BLUE_OFF
+    ELSE IF BUTTON3
+        GREEN_OFF
+        RED_OFF
+        BLUE_ON
     END
 END

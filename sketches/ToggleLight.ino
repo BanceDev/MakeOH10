@@ -1,8 +1,8 @@
 //ToggleLight
-#define RED 4
-#define YELLOW 5
-#define GREEN 2
-#define BLUE 3
+#define RED 2
+#define YELLOW 3
+#define GREEN 5
+#define BLUE 4
 #define BUZZER 6
 #define BUTTON1 7
 #define BUTTON2 8
@@ -24,9 +24,19 @@ lcd.backlight();
 lcd.setCursor(0, 0);
 }
 void loop() {
+lcd.setCursor(0,0);
+lcd.print("Hello Make Oh10!");
 if (digitalRead(BUTTON1) == LOW) {
 digitalWrite(GREEN, HIGH);
-} else {
+digitalWrite(RED, LOW);
+digitalWrite(BLUE, LOW);
+} else if (digitalRead(BUTTON2) == LOW) {
 digitalWrite(GREEN, LOW);
+digitalWrite(RED, HIGH);
+digitalWrite(BLUE, LOW);
+} else if (digitalRead(BUTTON3) == LOW) {
+digitalWrite(GREEN, LOW);
+digitalWrite(RED, LOW);
+digitalWrite(BLUE, HIGH);
 }
 }
