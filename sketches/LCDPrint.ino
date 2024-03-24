@@ -1,8 +1,8 @@
 //LCDPrint
-#define RED 4
-#define YELLOW 5
-#define GREEN 2
-#define BLUE 3
+#define RED 2
+#define YELLOW 3
+#define GREEN 5
+#define BLUE 4
 #define BUZZER 6
 #define BUTTON1 7
 #define BUTTON2 8
@@ -24,7 +24,6 @@ lcd.backlight();
 lcd.setCursor(0, 0);
 }
 void loop() {
-lcd.clear();
-lcd.setCursor(0,0)
-lcd.print("Hello World!");
+lcd.setCursor(0,0);
+lcd.print("Hello Make Oh10!");
 }
